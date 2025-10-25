@@ -7,6 +7,7 @@
 TEST(RectangleTest, DefaultConstructor) {
     Rectangle rect;
     EXPECT_DOUBLE_EQ(rect.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(rect.calc_square(), static_cast<double>(rect));
     
     Point3D center = rect.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 0.0);
@@ -18,22 +19,26 @@ TEST(RectangleTest, DefaultConstructor) {
 TEST(RectangleTest, ParameterizedConstructor) {
     Rectangle rect(4.0, 5.0, Point3D(0, 0, 0));
     EXPECT_DOUBLE_EQ(rect.calc_square(), 20.0);
+    EXPECT_DOUBLE_EQ(rect.calc_square(), static_cast<double>(rect));
 }
 
 // Тест вычисления площади
 TEST(RectangleTest, CalcSquareStandard) {
     Rectangle rect1(3.0, 4.0);
     EXPECT_DOUBLE_EQ(rect1.calc_square(), 12.0);
+    EXPECT_DOUBLE_EQ(rect1.calc_square(), static_cast<double>(rect1));
 }
 
 TEST(RectangleTest, CalcSquareLarge) {
     Rectangle rect2(10.0, 2.5);
     EXPECT_DOUBLE_EQ(rect2.calc_square(), 25.0);
+    EXPECT_DOUBLE_EQ(rect2.calc_square(), static_cast<double>(rect2));
 }
 
 TEST(RectangleTest, CalcSquareSmall) {
     Rectangle rect3(0.5, 0.5);
     EXPECT_DOUBLE_EQ(rect3.calc_square(), 0.25);
+    EXPECT_DOUBLE_EQ(rect3.calc_square(), static_cast<double>(rect3));
 }
 
 // Тест вычисления геометрического центра - начало координат
@@ -70,6 +75,7 @@ TEST(RectangleTest, CopyAssignment) {
     rect2 = rect1;
     
     EXPECT_DOUBLE_EQ(rect2.calc_square(), 15.0);
+    EXPECT_DOUBLE_EQ(rect2.calc_square(), static_cast<double>(rect2));
     
     Point3D center = rect2.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 3.5);  // 1 + 5/2
@@ -83,6 +89,8 @@ TEST(RectangleTest, MoveAssignment) {
     
     EXPECT_DOUBLE_EQ(rect2.calc_square(), 20.0);
     EXPECT_DOUBLE_EQ(rect1.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(rect2.calc_square(), static_cast<double>(rect2));
+    EXPECT_DOUBLE_EQ(rect1.calc_square(), static_cast<double>(rect1));
 }
 
 // Тест оператора сравнения - одинаковая площадь
@@ -127,6 +135,7 @@ TEST(RectangleTest, InputOperator) {
     std::cout.rdbuf(old_cout);
     
     EXPECT_DOUBLE_EQ(rect.calc_square(), 20.0);
+    EXPECT_DOUBLE_EQ(rect.calc_square(), static_cast<double>(rect));
     
     Point3D center = rect.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 3.0);  // 1 + 4/2
@@ -136,9 +145,11 @@ TEST(RectangleTest, InputOperator) {
 TEST(RectangleTest, EdgeCaseZeroWidth) {
     Rectangle rect(0.0, 5.0);
     EXPECT_DOUBLE_EQ(rect.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(rect.calc_square(), static_cast<double>(rect));
 }
 
 TEST(RectangleTest, EdgeCaseZeroHeight) {
     Rectangle rect(5.0, 0.0);
     EXPECT_DOUBLE_EQ(rect.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(rect.calc_square(), static_cast<double>(rect));
 }

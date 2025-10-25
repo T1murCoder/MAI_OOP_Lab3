@@ -8,6 +8,7 @@
 TEST(TriangleTest, DefaultConstructor) {
     Triangle tri;
     EXPECT_DOUBLE_EQ(tri.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(tri.calc_square(), static_cast<double>(tri));
     
     Point3D center = tri.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 0.0);
@@ -19,22 +20,26 @@ TEST(TriangleTest, DefaultConstructor) {
 TEST(TriangleTest, ParameterizedConstructor) {
     Triangle tri(8.0, 6.0, Point3D(0, 0, 0));
     EXPECT_DOUBLE_EQ(tri.calc_square(), 24.0);  // 0.5 * 8 * 6
+    EXPECT_DOUBLE_EQ(tri.calc_square(), static_cast<double>(tri));
 }
 
 // Тест вычисления площади
 TEST(TriangleTest, CalcSquareStandard) {
     Triangle tri1(6.0, 4.0);
     EXPECT_DOUBLE_EQ(tri1.calc_square(), 12.0);  // 0.5 * 6 * 4
+    EXPECT_DOUBLE_EQ(tri1.calc_square(), static_cast<double>(tri1));
 }
 
 TEST(TriangleTest, CalcSquareLarge) {
     Triangle tri2(10.0, 5.0);
     EXPECT_DOUBLE_EQ(tri2.calc_square(), 25.0);  // 0.5 * 10 * 5
+    EXPECT_DOUBLE_EQ(tri2.calc_square(), static_cast<double>(tri2));
 }
 
 TEST(TriangleTest, CalcSquareSmall) {
     Triangle tri3(3.0, 4.0);
     EXPECT_DOUBLE_EQ(tri3.calc_square(), 6.0);  // 0.5 * 3 * 4
+    EXPECT_DOUBLE_EQ(tri3.calc_square(), static_cast<double>(tri3));
 }
 
 // Тест вычисления геометрического центра - начало координат
@@ -79,6 +84,7 @@ TEST(TriangleTest, CopyAssignment) {
     tri2 = tri1;
     
     EXPECT_DOUBLE_EQ(tri2.calc_square(), 12.0);
+    EXPECT_DOUBLE_EQ(tri2.calc_square(), static_cast<double>(tri2));
     
     Point3D center = tri2.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 5.5);  // 1 + 3*6/4 = 1 + 4.5
@@ -91,7 +97,9 @@ TEST(TriangleTest, MoveAssignment) {
     tri2 = std::move(tri1);
     
     EXPECT_DOUBLE_EQ(tri2.calc_square(), 24.0);
+    EXPECT_DOUBLE_EQ(tri2.calc_square(), static_cast<double>(tri2));
     EXPECT_DOUBLE_EQ(tri1.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(tri1.calc_square(), static_cast<double>(tri1));
 }
 
 // Тест оператора сравнения - одинаковая площадь
@@ -136,6 +144,7 @@ TEST(TriangleTest, InputOperator) {
     std::cout.rdbuf(old_cout);
     
     EXPECT_DOUBLE_EQ(tri.calc_square(), 25.0);
+    EXPECT_DOUBLE_EQ(tri.calc_square(), static_cast<double>(tri));
     
     Point3D center = tri.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 9.5);  // 2 + 3*10/4 = 2 + 7.5
@@ -145,11 +154,13 @@ TEST(TriangleTest, InputOperator) {
 TEST(TriangleTest, EdgeCaseZeroBase) {
     Triangle tri1(0.0, 5.0);
     EXPECT_DOUBLE_EQ(tri1.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(tri1.calc_square(), static_cast<double>(tri1));
 }
 
 TEST(TriangleTest, EdgeCaseZeroHeight) {
     Triangle tri2(5.0, 0.0);
     EXPECT_DOUBLE_EQ(tri2.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(tri2.calc_square(), static_cast<double>(tri2));
 }
 
 // Тест сравнения треугольников с квадратами и прямоугольниками

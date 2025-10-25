@@ -1,6 +1,7 @@
 #include "../include/figure_array.h"
 #include "../include/point3d.h"
 #include <stdexcept>
+#include <iostream>
 #include <algorithm>
 
 FigureArray::FigureArray() : figures(nullptr), size(0), capacity(0) {}
@@ -13,6 +14,7 @@ FigureArray::FigureArray(size_t initial_capacity)
 }
 
 FigureArray::~FigureArray() {
+    std::cout << "FigureArray: Деструктор" << std::endl;
     clear();
     delete[] figures;
 }
@@ -88,7 +90,7 @@ bool FigureArray::empty() const {
 double FigureArray::total_area() const {
     double total = 0.0;
     for (size_t i = 0; i < size; ++i) {
-        total += figures[i]->calc_square();
+        total += static_cast<double>(*figures[i]);
     }
     return total;
 }
@@ -116,7 +118,7 @@ void FigureArray::print_centers_and_areas(std::ostream& os) const {
 
     for (size_t i = 0; i < size; ++i) {
         Point3D center = figures[i]->calc_center();
-        double area = figures[i]->calc_square();
+        double area = static_cast<double>(*figures[i]);
 
         os << "Фигура #" << i << ":" << std::endl;
         os << "  Центр: (" << center.x << ", " << center.y << ", " << center.z << ")" << std::endl;

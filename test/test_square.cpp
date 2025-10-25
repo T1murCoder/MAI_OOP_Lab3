@@ -7,6 +7,7 @@
 TEST(SquareTest, DefaultConstructor) {
     Square sq;
     EXPECT_DOUBLE_EQ(sq.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(sq.calc_square(), static_cast<double>(sq));
     
     Point3D center = sq.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 0.0);
@@ -18,6 +19,7 @@ TEST(SquareTest, DefaultConstructor) {
 TEST(SquareTest, ParameterizedConstructor) {
     Square sq(5.0, Point3D(1, 0, 0));
     EXPECT_DOUBLE_EQ(sq.calc_square(), 25.0);
+    EXPECT_DOUBLE_EQ(sq.calc_square(), static_cast<double>(sq));
     
     Point3D center = sq.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 3.5);  // 1 + 5/2
@@ -27,12 +29,15 @@ TEST(SquareTest, ParameterizedConstructor) {
 TEST(SquareTest, CalcSquareVariousSizes) {
     Square sq1(4.0);
     EXPECT_DOUBLE_EQ(sq1.calc_square(), 16.0);
+    EXPECT_DOUBLE_EQ(sq1.calc_square(), static_cast<double>(sq1));
     
     Square sq2(10.0);
     EXPECT_DOUBLE_EQ(sq2.calc_square(), 100.0);
+    EXPECT_DOUBLE_EQ(sq2.calc_square(), static_cast<double>(sq2));
     
     Square sq3(0.5);
     EXPECT_DOUBLE_EQ(sq3.calc_square(), 0.25);
+    EXPECT_DOUBLE_EQ(sq3.calc_square(), static_cast<double>(sq3));
 }
 
 // Тест вычисления геометрического центра - начало координат
@@ -69,6 +74,7 @@ TEST(SquareTest, CopyAssignment) {
     sq2 = sq1;
     
     EXPECT_DOUBLE_EQ(sq2.calc_square(), 16.0);
+    EXPECT_DOUBLE_EQ(sq2.calc_square(), static_cast<double>(sq2));
     
     Point3D center = sq2.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 3.0);  // 1 + 4/2
@@ -82,11 +88,13 @@ TEST(SquareTest, MoveAssignment) {
     
     // sq2 должен получить значения sq1
     EXPECT_DOUBLE_EQ(sq2.calc_square(), 16.0);
+    EXPECT_DOUBLE_EQ(sq2.calc_square(), static_cast<double>(sq2));
     Point3D center2 = sq2.calc_center();
     EXPECT_DOUBLE_EQ(center2.x, 4.0);
     
     // sq1 должен быть обнулен
     EXPECT_DOUBLE_EQ(sq1.calc_square(), 0.0);
+    EXPECT_DOUBLE_EQ(sq1.calc_square(), static_cast<double>(sq1));
 }
 
 // Тест оператора сравнения - равные квадраты
@@ -131,6 +139,7 @@ TEST(SquareTest, InputOperator) {
     std::cout.rdbuf(old_cout);
     
     EXPECT_DOUBLE_EQ(sq.calc_square(), 25.0);
+    EXPECT_DOUBLE_EQ(sq.calc_square(), static_cast<double>(sq));
     Point3D center = sq.calc_center();
     EXPECT_DOUBLE_EQ(center.x, 4.5);  // 2 + 5/2
 }

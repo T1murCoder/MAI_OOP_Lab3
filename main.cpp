@@ -28,13 +28,6 @@ void addFigure(FigureArray& array) {
     int choice;
     std::cin >> choice;
     
-    if (std::cin.fail()) {
-        std::cin.clear();
-        std::cin.ignore(10000, '\n');
-        std::cout << "Ошибка ввода!" << std::endl;
-        return;
-    }
-    
     Figure* figure = nullptr;
     
     try {
@@ -84,13 +77,6 @@ void compareFigures(const FigureArray& array) {
     size_t idx1, idx2;
     std::cin >> idx1 >> idx2;
     
-    if (std::cin.fail()) {
-        std::cin.clear();
-        std::cin.ignore(10000, '\n');
-        std::cout << "Ошибка ввода!" << std::endl;
-        return;
-    }
-    
     try {
         if (array.compare(idx1, idx2)) {
             std::cout << "Фигуры #" << idx1 << " и #" << idx2 << " равны" << std::endl;
@@ -112,13 +98,6 @@ void deleteFigure(FigureArray& array) {
     size_t idx;
     std::cin >> idx;
     
-    if (std::cin.fail()) {
-        std::cin.clear();
-        std::cin.ignore(10000, '\n');
-        std::cout << "Ошибка ввода!" << std::endl;
-        return;
-    }
-    
     try {
         array.remove(idx);
         std::cout << "Фигура #" << idx << " успешно удалена! Осталось фигур: " << array.get_size() << std::endl;
@@ -137,13 +116,6 @@ int main() {
     while (true) {
         printMenu();
         std::cin >> choice;
-        
-        if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
-            std::cout << "Ошибка ввода! Попробуйте снова." << std::endl;
-            continue;
-        }
         
         switch (choice) {
             case 1:
